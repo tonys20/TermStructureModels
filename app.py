@@ -23,12 +23,14 @@ def vasicek(r0, K, theta, sigma, T, N):
     return np.arange(0, N + 1) * dt, x
 
 # Define the simulation parameters
-r0 = 0.1
-K = 0.5
-theta = 0.05
-sigma = 0.1
-T = 1
-N = 100
+
+r0 = st.slider("Initial Rate", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+K = st.slider("Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+theta = st.slider("Long-term Mean", min_value=0.0, max_value=1.0, value=0.05, step=0.01)
+sigma = st.slider("Volatility", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+T = st.slider("Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
+N = st.slider("Number of Time Steps", min_value=1, max_value=100, value=10, step=1)
+
 
 # Simulate interest rates using the CIR and Vasicek models
 cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
