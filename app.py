@@ -47,7 +47,7 @@ fig.add_trace(
 
 # Add the Vasicek model data to the figure
 fig.add_trace(
-    go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
+    go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model", color='red'),
     row=2, col=1
 )
 
