@@ -60,7 +60,7 @@ cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
 vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
 cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
 
-fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS Hash' "Vasicek Model"))
+fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS Hash', "Vasicek Model"))
 
 # Add the CIR model data to the figure
 fig.add_trace(
