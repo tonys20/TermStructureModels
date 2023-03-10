@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
+import pandas_datareader.data as web
+import datetime
 
 # Define the CIR and Vasicek models for simulating interest rates
 def cir(r0, K, theta, sigma, T, N):
@@ -36,7 +38,7 @@ N = st.slider("N: Number of Time Steps", min_value=1, max_value=100, value=10, s
 cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
 vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
 
-# Create a new Plotly figure
+
 fig = make_subplots(rows=2, cols=1, subplot_titles=("CIR Model", "Vasicek Model"))
 
 # Add the CIR model data to the figure
@@ -56,3 +58,11 @@ fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
 
 # Display the Plotly figure using Streamlit
 st.plotly_chart(fig)
+
+start_date = datetime.datetime(2000, 1, 1)
+end_date = datetime.datetime(2022, 3, 9)
+
+# Get 3-month Treasury Bill data from FRED
+tbill_data = web.DataReader("DTB3", "fred", start_date, end_date)
+
+st.textbox(tbill_data.head())
