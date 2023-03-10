@@ -37,12 +37,12 @@ vasicek_x, vasicek_y = vasicek(r0=r0, K=K, theta=theta, sigma=sigma, T=T, N=N)
 fig = make_subplots(rows=2, cols=1, subplot_titles=("CIR Model", "Vasicek Model"))
 
 fig.add_trace(
-    go.Scatter(x=cir_x, y=cir_y, name="CIR Model"),
+    go.Lines(x=cir_x, y=cir_y, name="CIR Model"),
     row=1, col=1
 )
 
 fig.add_trace(
-    go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
+    go.Lines(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
     row=2, col=1
 )
 
