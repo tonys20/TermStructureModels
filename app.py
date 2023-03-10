@@ -8,7 +8,7 @@ import datetime
 np.random.seed(4)
 
 # Define the CIR and Vasicek models for simulating interest rates
-def cir(r0, K, theta, sigma, T, N):
+def cir_neg(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
     x[0] = r0
@@ -19,6 +19,16 @@ def cir(r0, K, theta, sigma, T, N):
 
     return np.arange(0, N + 1) * dt, x
 
+def cir(r0, K, theta, sigma, T, N):
+    dt = float(T) / N
+    x = np.zeros(N + 1)
+    x[0] = r0
+    for i in range(1, N + 1):
+
+        dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
+        x[i] = x[i - 1] + dxt
+
+    return np.arange(0, N + 1) * dt, x
 
 
 
@@ -46,9 +56,9 @@ N = st.slider("N: Number of Time Steps", min_value=1, max_value=10000, value=10,
 # Simulate interest rates using the CIR and Vasicek models
 cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
 vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
+cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
 
-
-fig = make_subplots(rows=2, cols=1, subplot_titles=("CIR Model", "Vasicek Model"))
+fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model", "Vasicek Model"))
 
 # Add the CIR model data to the figure
 fig.add_trace(
@@ -59,6 +69,11 @@ fig.add_trace(
 # Add the Vasicek model data to the figure
 fig.add_trace(
     go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
+    row=3, col=1
+)
+
+fig.add_trace(
+    go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'CIR abs hash'),
     row=2, col=1
 )
 
