@@ -4,3 +4,4 @@ matplotlib
 scipy
 yfinance
 plotly
+pandas_datareader
