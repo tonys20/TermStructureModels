@@ -65,4 +65,4 @@ end_date = datetime.datetime(2022, 3, 9)
 # Get 3-month Treasury Bill data from FRED
 tbill_data = web.DataReader("DTB3", "fred", start_date, end_date)
 
-st.textbox(tbill_data.head())
+st.table(tbill_data.head())
