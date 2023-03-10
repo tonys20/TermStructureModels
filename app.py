@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 
 def cir(r0, K, theta, sigma, T=1.0, N=10, seed=None):
     np.random.seed(seed)
@@ -32,11 +33,18 @@ N = st.slider("Number of Time Steps: N", min_value=1, max_value=100, value=10, s
 cir_x, cir_y = cir(r0=r0, K=K, theta=theta, sigma=sigma, T=T, N=N)
 vasicek_x, vasicek_y = vasicek(r0=r0, K=K, theta=theta, sigma=sigma, T=T, N=N)
 
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(cir_x, cir_y, label="CIR")
-ax.plot(vasicek_x, vasicek_y, label="Vasicek")
-ax.legend()
-ax.set_xlabel("Time")
-ax.set_ylabel("Rate")
-ax.set_title("Interest Rate Simulation")
-st.pyplot(fig)
+# Plot the results using Plotly
+fig = make_subplots(rows=2, cols=1, subplot_titles=("CIR Model", "Vasicek Model"))
+
+fig.add_trace(
+    go.Scatter(x=cir_x, y=cir_y, name="CIR Model"),
+    row=1, col=1
+)
+
+fig.add_trace(
+    go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
+    row=2, col=1
+)
+
+fig.update_layout(height=600, width=800, title="Interest Rate Simulation")
+st.plotly_chart(fig)
