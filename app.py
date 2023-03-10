@@ -4,7 +4,7 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import pandas_datareader.data as web
 import datetime
-
+np.random.seed(4)
 # Define the CIR and Vasicek models for simulating interest rates
 def cir(r0, K, theta, sigma, T, N):
     dt = float(T) / N
