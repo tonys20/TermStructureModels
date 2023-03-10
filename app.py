@@ -36,15 +36,3 @@ vasicek_x, vasicek_y = vasicek(r0=r0, K=K, theta=theta, sigma=sigma, T=T, N=N)
 # Plot the results using Plotly
 fig = make_subplots(rows=2, cols=1, subplot_titles=("CIR Model", "Vasicek Model"))
 
-fig.add_trace(
-    go.Lines(x=cir_x, y=cir_y, name="CIR Model"),
-    row=1, col=1
-)
-
-fig.add_trace(
-    go.Lines(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
-    row=2, col=1
-)
-
-fig.update_layout(height=600, width=800, title="Interest Rate Simulation")
-st.plotly_chart(fig)
