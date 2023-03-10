@@ -52,7 +52,7 @@ fig.add_trace(
 )
 
 # Update the layout of the figure
-fig.update_layout(height=600, width=800, title="Interest Rate Simulation")
+fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
 
 # Display the Plotly figure using Streamlit
 st.plotly_chart(fig)
