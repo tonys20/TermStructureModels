@@ -68,16 +68,17 @@ fig.add_trace(
     row=1, col=1
 )
 
+fig.add_trace(
+    go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'CIR abs hash'),
+    row=2, col=1
+)
+
 # Add the Vasicek model data to the figure
 fig.add_trace(
     go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
     row=3, col=1
 )
 
-fig.add_trace(
-    go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'CIR abs hash'),
-    row=2, col=1
-)
 
 # Update the layout of the figure
 fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
