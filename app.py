@@ -126,7 +126,7 @@ def cir_opt(r0, K, theta, sigma, T, N):
 def error_function(params, r):
     theta = hist_stats.loc['DTB3','mean']
     sigma = hist_stats.loc['DTB3', 'vol']
-    K=params
+    K=params[0]
     n = len(r)
     dt = 1/252
     sum_of_errors = 0
