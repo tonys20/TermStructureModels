@@ -90,7 +90,7 @@ start_date = datetime.datetime(2017, 1, 1)
 end_date = datetime.datetime(2023, 3, 9)
 
 # Get 3-month Treasury Bill data from FRED
-@st.cache
+@st.cache_data
 def get_tbill_data(item_ls, start_date, end_date):
     tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
     return tbill_data
