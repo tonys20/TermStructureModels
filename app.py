@@ -99,3 +99,42 @@ for col in tbill_data.columns:
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
 
 st.table(hist_stats)
+
+
+# Define the CIR model function
+def CIR(r, a, b, sigma):
+    dr = a*(b - r)
+    dr -= 0.5*sigma**2*b**2*a*(1-np.exp(-2*r/b))/b
+    dr += sigma*b*np.sqrt((1-np.exp(-2*r/b))/(2*a*b))
+    return dr
+
+# Define the error function to be minimized
+def error_function(params, r):
+    a, b, sigma = params
+    n = len(r)
+    dt = 1/252
+    sum_of_errors = 0
+    for i in range(1, n):
+        predicted_r = r[i-1] + CIR(r[i-1], a, b, sigma)*dt
+        error = r[i] - predicted_r
+        sum_of_errors += error**2
+    return sum_of_errors
+
+# Load the historical data
+
+r = tbill_data['DTB3']
+
+# Set the initial guess for the parameters
+initial_guess = [0.01, 0.01, 0.01]
+
+# Set bounds for the parameters
+bounds = [(0, None), (0, None), (0, None)]
+
+# Optimize the parameters using the error function and initial guess
+result = opt.minimize(error_function, initial_guess, args=(r,), bounds=bounds)
+
+# Print the optimized parameters
+st.write('Optimized Parameters:')
+st.write(f'a = {result.x[0]}')
+st.write(f'b = {result.x[1]}')
+st.write(f'sigma = {result.x[2]}')
