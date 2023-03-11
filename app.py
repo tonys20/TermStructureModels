@@ -89,5 +89,7 @@ end_date = datetime.datetime(2023, 3, 9)
 
 # Get 3-month Treasury Bill data from FRED
 tbill_data = web.DataReader(["DTB4WK","DTB3","DTB6","DTB1YR"], "fred", start_date, end_date).dropna()
-
 st.table(tbill_data.head())
+long_term_mean_dic = {}
+for col in tbill_data.columns:
+    long_term_mean_dic[col] = tbill_data[col].mean()
