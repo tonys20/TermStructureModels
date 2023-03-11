@@ -142,7 +142,7 @@ def error_function(params, r):
 r = tbill_data['DTB3'].tolist()
 
 # Set the initial guess for the parameters
-initial_guess = 0.02
+initial_guess = [0.02]
 
 # Set bounds for the parameters
 bounds = [(0, 0.01), (0, None), (0, None)]
