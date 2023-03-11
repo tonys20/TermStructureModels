@@ -126,7 +126,7 @@ def error_function(params, r):
         predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
         error = r[i] - predicted_r
         sum_of_errors += error**2
-        print(sum_of_errors)
+        st.write(sum_of_errors)
     return sum_of_errors
 
 # Load the historical data
