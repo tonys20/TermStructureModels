@@ -123,9 +123,8 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 
 # Define the error function to be minimized
-def error_function(K, r):
-    sigma = hist_stats.loc['DTB3','vol']
-    theta = hist_stats.loc['DTB3', 'mean']
+def error_function(params, r):
+    K, sigma, theta = params
     n = len(r)
     dt = 1/252
     sum_of_errors = 0
@@ -141,13 +140,13 @@ def error_function(K, r):
 r = tbill_data['DTB3'].tolist()
 
 # Set the initial guess for the parameters
-#initial_guess = [0.02, 0.02, 0.02]
+initial_guess = [0.02, 0.02, 0.02]
 
 # Set bounds for the parameters
 bounds = [(0, 0.01), (0, None), (0, None)]
 
 # Optimize the parameters using the error function and initial guess
-result = opt.minimize(error_function, 0.02, args=(r,), bounds=bounds)
+result = opt.minimize(error_function, initial_guess, args=(r,), bounds=bounds)
 
 # Print the optimized parameters
 st.write('Optimized Parameters:')
