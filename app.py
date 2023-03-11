@@ -32,6 +32,12 @@ def cir(r0, K, theta, sigma, T, N):
 
     return np.arange(0, N + 1) * dt, x
 
+def cir_hash(r0, K, theta, sigma, T, N):
+    dt = float(T)/N
+    x = np.zeros(N+1)
+    x[0] = r0 
+    for i in range(1, N+1):
+        dxt = K*(theta - g(x[i-1])*dt) + sigma*np.sqrt(g(x(i-1))*np.random.normal()
 
 
 def vasicek(r0, K, theta, sigma, T, N):
@@ -58,7 +64,7 @@ cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
 vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
 cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
 
-fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS Hash', "Vasicek Model"))
+fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS', "Vasicek Model"))
 
 # Add the CIR model data to the figure
 fig.add_trace(
@@ -88,6 +94,6 @@ start_date = datetime.datetime(2017, 1, 1)
 end_date = datetime.datetime(2023, 3, 9)
 
 # Get 3-month Treasury Bill data from FRED
-tbill_data = web.DataReader(["DTB4WK","DTB3","DTB6","1YR"], "fred", start_date, end_date)
+tbill_data = web.DataReader(["DTB4WK","DTB3","DTB6","DTB1YR"], "fred", start_date, end_date)
 
 st.table(tbill_data.head())
