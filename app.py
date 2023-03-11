@@ -103,6 +103,17 @@ st.table(hist_stats)
 
 
 # Define the CIR model function
+def cir_opt(r0, K, theta, sigma, T, N):
+    dt = float(T) / N
+    x = np.zeros(N + 1)
+    x[0] = r0
+    for i in range(1, N + 1):
+        if x[i-1] >=0:
+            dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
+        else:
+            dxt = 0
+    return dxt
+
 
 
 # Define the error function to be minimized
@@ -112,7 +123,7 @@ def error_function(params, r):
     dt = 1/252
     sum_of_errors = 0
     for i in range(1, n):
-        predicted_r = r[i-1] + cir(r[i-1], K, theta, sigma,5,n)*dt
+        predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
         error = r[i] - predicted_r
         sum_of_errors += error**2
     return sum_of_errors
