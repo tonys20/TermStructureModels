@@ -5,6 +5,7 @@ from plotly.subplots import make_subplots
 import pandas_datareader.data as web
 import datetime
 import pandas as pd
+import scipy.optimize as opt
 
 np.random.seed(4)
 
