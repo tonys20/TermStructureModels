@@ -34,8 +34,6 @@ def cir(r0, K, theta, sigma, T, N):
 
 
 
-
-
 def vasicek(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
@@ -51,7 +49,7 @@ r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=1.0, value=0.5, step
 K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
 theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=1.0, value=0.05, step=0.01)
 sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
-T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=365.0, value=1.0, step=0.1)
+T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
 N = st.slider("N: Number of Time Steps", min_value=1, max_value=10000, value=10, step=1)
 
 
