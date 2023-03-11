@@ -120,11 +120,11 @@ def cir_opt(r0, K, theta, sigma, T, N):
             dxt = 0
     return dxt
 
-
-
 # Define the error function to be minimized
-def error_function(params, r):
-    K, sigma, theta = params
+def error_function(K, r):
+    sigma = 1.1941
+    theta = 1.3251
+
     n = len(r)
     dt = 1/252
     sum_of_errors = 0
@@ -140,16 +140,14 @@ def error_function(params, r):
 r = tbill_data['DTB3'].tolist()
 
 # Set the initial guess for the parameters
-initial_guess = [0.02, 0.02, 0.02]
+initial_guess = 0.02
 
 # Set bounds for the parameters
-bounds = [(0, 0.01), (0, None), (0, None)]
+bounds = (0, 0.01)
 
 # Optimize the parameters using the error function and initial guess
-result = opt.minimize(error_function, initial_guess, args=(r,), bounds=bounds)
+result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
 
 # Print the optimized parameters
 st.write('Optimized Parameters:')
-st.write(f'a = {result.x[0]}')
-st.write(f'b = {result.x[1]}')
-st.write(f'sigma = {result.x[2]}')
+st.write(f'K = {result.x}')
