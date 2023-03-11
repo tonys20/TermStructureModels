@@ -84,10 +84,10 @@ fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
 # Display the Plotly figure using Streamlit
 st.plotly_chart(fig)
 
-start_date = datetime.datetime(2000, 1, 1)
-end_date = datetime.datetime(2022, 3, 9)
+start_date = datetime.datetime(2017, 1, 1)
+end_date = datetime.datetime(2023, 3, 9)
 
 # Get 3-month Treasury Bill data from FRED
-tbill_data = web.DataReader("DTB3", "fred", start_date, end_date)
+tbill_data = web.DataReader(["DTB4WK","DTB3","DTB6","1YR"], "fred", start_date, end_date)
 
 st.table(tbill_data.head())
