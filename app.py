@@ -32,12 +32,6 @@ def cir(r0, K, theta, sigma, T, N):
 
     return np.arange(0, N + 1) * dt, x
 
-def cir_hash(r0, K, theta, sigma, T, N):
-    dt = float(T)/N
-    x = np.zeros(N+1)
-    x[0] = r0 
-    for i in range(1, N+1):
-        dxt = K*(theta - g(x[i-1])*dt) + sigma*np.sqrt(g(x(i-1))*np.random.normal()
 
 
 def vasicek(r0, K, theta, sigma, T, N):
