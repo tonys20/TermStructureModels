@@ -88,6 +88,6 @@ start_date = datetime.datetime(2017, 1, 1)
 end_date = datetime.datetime(2023, 3, 9)
 
 # Get 3-month Treasury Bill data from FRED
-tbill_data = web.DataReader(["DTB4WK","DTB3","DTB6","DTB1YR"], "fred", start_date, end_date)
+tbill_data = web.DataReader(["DTB4WK","DTB3","DTB6","DTB1YR"], "fred", start_date, end_date).dropna()
 
 st.table(tbill_data.head())
