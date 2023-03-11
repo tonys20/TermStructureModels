@@ -124,7 +124,6 @@ def cir_opt(r0, K, theta, sigma, T, N):
 def error_function(K, r):
     sigma = 1.1941
     theta = 1.3251
-
     n = len(r)
     dt = 1/252
     sum_of_errors = 0
