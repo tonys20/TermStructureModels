@@ -93,3 +93,4 @@ st.table(tbill_data.head())
 long_term_mean_dic = {}
 for col in tbill_data.columns:
     long_term_mean_dic[col] = tbill_data[col].mean()
+print(long_term_mean_dic)
