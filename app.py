@@ -112,7 +112,7 @@ def error_function(params, r):
     dt = 1/252
     sum_of_errors = 0
     for i in range(1, n):
-        predicted_r = r[i-1] + cir(r[i-1], K, theta, sigma,n*dt,n)*dt
+        predicted_r = r[i-1] + cir(r[i-1], K, theta, sigma,5,n)*dt
         error = r[i] - predicted_r
         sum_of_errors += error**2
     return sum_of_errors
