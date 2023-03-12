@@ -148,4 +148,4 @@ result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 
 
 st.write('Optimized Parameters:')
 
-#st.write(f'K = {result.x}')
+st.write(f'K = {result.x}')
