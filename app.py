@@ -69,7 +69,7 @@ with left_col:
     rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
     if st.button('calibrate!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
-        theta_cal = hist_stats.loc[rate_selected,'mean',]
+        theta_cal = hist_stats.loc[rate_selected,'mean']
         sigma_cal = hist_stats.loc[rate_selected,'vol']
     else:
         r0_cal = 0.5
