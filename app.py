@@ -105,7 +105,7 @@ for col in tbill_data.columns:
 with right_col:
     st.table(tbill_data.tail(3))
     st.table(hist_stats)
-    st.button('calibrate')
+    st.button('calibrate!')
 
 
 # Define the CIR model function
