@@ -119,10 +119,6 @@ bounds = (0, 0.1)
 
 # Print the optimized parameters
 tabs = ['Sandbox', 'Calibration']
-cols = st.beta_columns(len(tabs))
-for i, col in enumerate(cols):
-    col.write(f"## {tabs[i]}")
-
 active_tab = st.sidebar.radio('select tabs', tabs)
 
 
