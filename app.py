@@ -137,7 +137,7 @@ sse1 = error_function(0.01, r)
 st.write(sse1)
 # Set the initial guess for the parameters
 initial_guess = 0.02
-'''
+
 # Set bounds for the parameters
 bounds = (0, 0.1)
 
@@ -148,4 +148,3 @@ bounds = (0, 0.1)
 
 st.write('Optimized Parameters:')
 #st.write(f'K = {result.x}')
-'''
