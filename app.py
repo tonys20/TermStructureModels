@@ -41,11 +41,32 @@ def vasicek(r0, K, theta, sigma, T, N):
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
 
+@st.cache_data
+def get_tbill_data(item_ls, start_date, end_date):
+    tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
+    return tbill_data
+#get the t bill data from FRED
+items = ["DTB4WK","DTB3","DTB6","DTB1YR"]
+start_date = datetime.datetime(2017, 1, 1)
+end_date = datetime.datetime.today()
+
+tbill_data = get_tbill_data(items, start_date, end_date)
+
+
+
+hist_stats = pd.DataFrame(columns =['mean', 'vol'], index = list(tbill_data.columns))
+hist_stats.index = tbill_data.columns
+for col in tbill_data.columns:
+    hist_stats.loc[col,'mean'] = tbill_data[col].mean()
+    hist_stats.loc[col,'vol'] = tbill_data[col].std()
+
 left_col, right_col = st.columns(2)
 with left_col:
     '''
     This section demonstrates effect of changing each of the parameters in the 3 models
     '''
+
+
     # Define the simulation parameters
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=10.0, value=0.5, step=0.01)
     K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
@@ -53,6 +74,12 @@ with left_col:
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=0.1, step=0.01)
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=3650, value=10, step=1)
+    options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
+    rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
+    if st.button('Calibrate!'):
+        r0 = 
+
+
     # Simulate interest rates using the CIR and Vasicek models
     cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
     vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
@@ -84,38 +111,16 @@ with left_col:
     # Display the Plotly figure using Streamlit
     st.plotly_chart(fig)
 
-start_date = datetime.datetime(2017, 1, 1)
-end_date = datetime.datetime.today()
 
-# Get 3-month Treasury Bill data from FRED
-@st.cache_data
-def get_tbill_data(item_ls, start_date, end_date):
-    tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
-    return tbill_data
-
-items = ["DTB4WK","DTB3","DTB6","DTB1YR"]
-tbill_data = get_tbill_data(items, start_date, end_date)
-
-
-hist_stats = pd.DataFrame(columns =['mean', 'vol'], index = list(tbill_data.columns))
-hist_stats.index = tbill_data.columns
-for col in tbill_data.columns:
-    hist_stats.loc[col,'mean'] = tbill_data[col].mean()
-    hist_stats.loc[col,'vol'] = tbill_data[col].std()
 with right_col:
     st.table(tbill_data.tail(3))
     st.table(hist_stats)
-    options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
-    rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-    button = st.button('calibrate!')
-    def cal_to_historical():
-        new_r0 = tbill_data[rate_selected].iloc[-1]
-        st.session_state.value = new_r0
-    if button:
-        cal_to_historical()
-    if 'value' not in st.session_state:
-        st.session_state.value = value
-    st.slider('Select a value', 0, 100, st.session_state.value)
+
+
+        
+
+    
+
 
 
 
