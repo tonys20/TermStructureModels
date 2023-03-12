@@ -115,6 +115,8 @@ with right_col:
         cal_to_historical()
     if 'value' not in st.session_state:
         st.session_state.value = value
+    st.slider('Select a value', 0, 100, st.session_state.value)
+
 
 
 
