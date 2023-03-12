@@ -34,8 +34,6 @@ def cir(r0, K, theta, sigma, T, N):
 
     return np.arange(0, N + 1) * dt, x
 
-
-
 def vasicek(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
