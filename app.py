@@ -141,7 +141,7 @@ r = tbill_data['DTB3'].tolist()
 initial_guess = 0.02
 
 # Set bounds for the parameters
-bounds = (0, 0.01)
+bounds = (0, 0.1)
 
 # Optimize the parameters using the error function and initial guess
 result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
