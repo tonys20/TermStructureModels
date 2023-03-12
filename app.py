@@ -105,7 +105,20 @@ for col in tbill_data.columns:
 with right_col:
     st.table(tbill_data.tail(3))
     st.table(hist_stats)
-    st.button('calibrate!')
+    options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
+    rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
+    button = st.button('calibrate!')
+    def cal_to_historical():
+        new_r0 = tbill_data[rate_selected].iloc[-1]
+        r0_container.empty()
+        r0_container.text(new_r0)
+        r0 = new_r0
+    if button:
+        cal_to_historical()
+    r0_container = st.empty()
+    r0_container.text(r0)
+
+
 
 
 # Define the CIR model function
