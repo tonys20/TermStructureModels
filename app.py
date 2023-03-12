@@ -16,7 +16,7 @@ def cir_neg(r0, K, theta, sigma, T, N):
     x = np.zeros(N + 1)
     x[0] = r0
     for i in range(1, N + 1):
-        np.random.seed(4)
+        np.random.seed(42)
         dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(np.abs(x[i - 1])) * np.random.normal()
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
@@ -27,7 +27,7 @@ def cir(r0, K, theta, sigma, T, N):
     x[0] = r0
     for i in range(1, N + 1):
         if x[i-1] >=0:
-            np.random.seed(4)
+            np.random.seed(42)
             dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
             x[i] = x[i - 1] + dxt
         else:
@@ -40,7 +40,7 @@ def vasicek(r0, K, theta, sigma, T, N):
     x = np.zeros(N + 1)
     x[0] = r0
     for i in range(1, N + 1):
-        np.random.seed(4)
+        np.random.seed(42)
         dxt = K * (theta - x[i - 1]) * dt + sigma * np.random.normal()
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
