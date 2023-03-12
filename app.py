@@ -110,13 +110,12 @@ with right_col:
     button = st.button('calibrate!')
     def cal_to_historical():
         new_r0 = tbill_data[rate_selected].iloc[-1]
-        r0_container.empty()
-        r0_container.text(new_r0)
-        r0 = new_r0
+        st.session_state.value = new_r0
     if button:
         cal_to_historical()
-    r0_container = st.empty()
-    r0_container.text(r0)
+    if 'value' not in st.session_state:
+        st.session_state.value = value
+
 
 
 
