@@ -76,8 +76,7 @@ with left_col:
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=3650, value=10, step=1)
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
     rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-    if st.button('Calibrate!'):
-        r0 = 
+
 
 
     # Simulate interest rates using the CIR and Vasicek models
