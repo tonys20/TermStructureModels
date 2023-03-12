@@ -133,7 +133,7 @@ def error_function(K, r):
 # Load the historical data
 
 r = tbill_data['DTB3']
-sse1 = error_function(0.01, r, cir)
+sse1 = error_function(0.01, r)
 st.write(sse1)
 # Set the initial guess for the parameters
 initial_guess = 0.02
