@@ -85,7 +85,7 @@ with left_col:
     st.plotly_chart(fig)
 
 start_date = datetime.datetime(2017, 1, 1)
-end_date = datetime.datetime(2023, 3, 9)
+end_date = datetime.datetime.today()
 
 # Get 3-month Treasury Bill data from FRED
 @st.cache_data
