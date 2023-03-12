@@ -90,6 +90,17 @@ with left_col:
     cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
     vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
     cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
+    data = {
+        'x': cir_x,
+        'cir_y': cir_y,
+        'vascicek_y':vascicek_y,
+        'cir_neg_y':cir_neg_y
+    }
+    output_df = pd.DataFrame(data)
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download data</a>'
+
 
 
     fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS', "Vasicek Model"))
@@ -116,7 +127,7 @@ with left_col:
 
     # Display the Plotly figure using Streamlit
     st.plotly_chart(fig)
-
+    st.markdown(href, unsafe_allow_html=True)
 
 with right_col:
     st.table(tbill_data.tail(3))
