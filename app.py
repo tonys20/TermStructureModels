@@ -52,7 +52,7 @@ def vasicek(r0, K, theta, sigma, T, N):
 
 
 # Update the layout of the figure
-fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
+
 
 # Display the Plotly figure using Streamlit
 
@@ -156,6 +156,7 @@ if active_tab == 'Sandbox':
         go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
         row=3, col=1
     )
+    fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
     st.plotly_chart(fig)
 else:
     st.table(tbill_data.head())
