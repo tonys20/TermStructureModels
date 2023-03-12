@@ -100,11 +100,11 @@ for col in tbill_data.columns:
     hist_stats.loc[col,'mean'] = tbill_data[col].mean()
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
 
-
 st.table(tbill_data.head())
 st.table(tbill_data.tail())
 st.table(hist_stats)
 
+'''
 # Define the CIR model function
 def cir_opt(r0, K, theta, sigma, T, N):
     dt = float(T) / N
@@ -148,3 +148,4 @@ bounds = (0, 0.1)
 
 st.write('Optimized Parameters:')
 #st.write(f'K = {result.x}')
+'''
