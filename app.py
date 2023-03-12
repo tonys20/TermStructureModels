@@ -128,7 +128,7 @@ with left_col:
 
     # Display the Plotly figure using Streamlit
     st.plotly_chart(fig)
-    if st.butoton('Download data'):
+    if st.button('Download data'):
         b64 = base64.b64encode(csv.encode()).decode()
         href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download CSV</a>'
         st.markdown(href, unsafe_allow_html=True)
