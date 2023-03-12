@@ -16,7 +16,7 @@ def cir_neg(r0, K, theta, sigma, T, N):
     x = np.zeros(N + 1)
     x[0] = r0
     for i in range(1, N + 1):
-        np.random.seed(42)
+
         dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(np.abs(x[i - 1])) * np.random.normal()
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
@@ -27,12 +27,11 @@ def cir(r0, K, theta, sigma, T, N):
     x[0] = r0
     for i in range(1, N + 1):
         if x[i-1] >=0:
-            np.random.seed(42)
-            dxt = K * (theta - x[i - 1]) * dt + dt*sigma * np.sqrt(x[i - 1]) * np.random.normal()
+
+            dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
             x[i] = x[i - 1] + dxt
         else:
             x[i] = x[i-1]
-
     return np.arange(0, N + 1) * dt, x
 
 def vasicek(r0, K, theta, sigma, T, N):
@@ -40,7 +39,7 @@ def vasicek(r0, K, theta, sigma, T, N):
     x = np.zeros(N + 1)
     x[0] = r0
     for i in range(1, N + 1):
-        np.random.seed(42)
+
         dxt = K * (theta - x[i - 1]) * dt + sigma * np.random.normal()
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
@@ -87,7 +86,7 @@ with left_col:
     theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=20.0, value=float(theta_cal), step=0.01)
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=float(sigma_cal), step=0.01)
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-    N = st.slider("N: Number of Time Steps", min_value=1, max_value=200, value=10, step=1)
+    N = st.slider("N: Number of Time Steps", min_value=1, max_value=200, value=10, step=10)
    
 
 
