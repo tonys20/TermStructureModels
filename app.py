@@ -98,6 +98,7 @@ def get_tbill_data(item_ls, start_date, end_date):
 items = ["DTB4WK","DTB3","DTB6","DTB1YR"]
 tbill_data = get_tbill_data(items, start_date, end_date)
 st.table(tbill_data.head())
+st.table(tbill_data.tail())
 
 hist_stats = pd.DataFrame(columns =['mean', 'vol'], index = list(tbill_data.columns))
 hist_stats.index = tbill_data.columns
