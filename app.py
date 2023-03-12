@@ -120,22 +120,23 @@ def cir_opt(r0, K, theta, sigma, T, N):
     return dxt
 
 # Define the error function to be minimized
-def error_function(K, r):
+def error_function(K, r, model):
     sigma = 1.1941
     theta = 1.3251
     n = len(r)
     dt = 1/252
     sum_of_errors = 0
     for i in range(1, n):
-        predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
+        predicted_r = model(r[i-1], K, theta, sigma,n*dt,1)*dt
         error = r[i] - predicted_r
         sum_of_errors += error**2
     return sum_of_errors
 
 # Load the historical data
 
-r = tbill_data['DTB3'].tolist()
-
+r = tbill_data['DTB3']
+sse1 = error_function(0,01, r, cir)
+st.write(sse1)
 # Set the initial guess for the parameters
 initial_guess = 0.02
 
