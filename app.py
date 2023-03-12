@@ -6,6 +6,7 @@ import pandas_datareader.data as web
 import datetime
 import pandas as pd
 import scipy.optimize as opt
+import base64
 
 np.random.seed(4)
 
@@ -45,6 +46,7 @@ def vasicek(r0, K, theta, sigma, T, N):
 def get_tbill_data(item_ls, start_date, end_date):
     tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
     return tbill_data
+
 #get the t bill data from FRED
 items = ["DTB4WK","DTB3","DTB6","DTB1YR"]
 start_date = datetime.datetime(2017, 1, 1)
@@ -126,7 +128,10 @@ with left_col:
 
     # Display the Plotly figure using Streamlit
     st.plotly_chart(fig)
-
+    if st.butoton('Download data'):
+        b64 = base64.b64encode(csv.encode()).decode()
+        href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download CSV</a>'
+        st.markdown(href, unsafe_allow_html=True)
 
 with right_col:
     st.table(tbill_data.tail(3))
