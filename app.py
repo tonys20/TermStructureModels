@@ -15,10 +15,8 @@ def cir_neg(r0, K, theta, sigma, T, N):
     x = np.zeros(N + 1)
     x[0] = r0
     for i in range(1, N + 1):
-
         dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(np.abs(x[i - 1])) * np.random.normal()
         x[i] = x[i - 1] + dxt
-
     return np.arange(0, N + 1) * dt, x
 
 def cir(r0, K, theta, sigma, T, N):
@@ -104,7 +102,7 @@ st.table(tbill_data.head())
 st.table(tbill_data.tail())
 st.table(hist_stats)
 
-'''
+
 # Define the CIR model function
 def cir_opt(r0, K, theta, sigma, T, N):
     dt = float(T) / N
@@ -117,18 +115,20 @@ def cir_opt(r0, K, theta, sigma, T, N):
             dxt = 0
     return dxt
 
+
 # Define the error function to be minimized
-def error_function(K, r, model):
-    sigma = 1.1941
-    theta = 1.3251
+def error_function(K, r):
+    sigma = 0.01
+    theta = 0.02
     n = len(r)
     dt = 1/252
     sum_of_errors = 0
     for i in range(1, n):
-        predicted_r = model(r[i-1], K, theta, sigma,n*dt,1)[1]*dt
+        predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
         error = r[i] - predicted_r
         sum_of_errors += error**2
     return sum_of_errors
+
 
 # Load the historical data
 
@@ -137,7 +137,7 @@ sse1 = error_function(0,01, r, cir)
 st.write(sse1)
 # Set the initial guess for the parameters
 initial_guess = 0.02
-
+'''
 # Set bounds for the parameters
 bounds = (0, 0.1)
 
