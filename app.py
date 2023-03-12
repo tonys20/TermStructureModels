@@ -70,7 +70,7 @@ with left_col:
     r0_cal = 0.5
     theta_cal = 0.05
     sigma_cal = 0.1
-    if st.button('calibrate!'):
+    if st.button('calibrate for r0, LT mean, volatility!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
         theta_cal = hist_stats.loc[rate_selected,'mean']
         sigma_cal = hist_stats.loc[rate_selected,'vol']
