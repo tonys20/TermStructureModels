@@ -67,6 +67,9 @@ with left_col:
     '''
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
     rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
+    r0_cal = 0.5
+    theta_cal = 0.05
+    sigma_cal = 0.1
     if st.button('calibrate!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
         theta_cal = hist_stats.loc[rate_selected,'mean']
