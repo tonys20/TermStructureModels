@@ -97,7 +97,7 @@ with left_col:
         'cir_neg_y':cir_neg_y
     }
     output_df = pd.DataFrame(data)
-    csv = df.to_csv(index=False)
+    csv = output_df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
     href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download data</a>'
 
