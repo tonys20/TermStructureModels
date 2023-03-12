@@ -65,7 +65,9 @@ with left_col:
     '''
     This section demonstrates effect of changing each of the parameters in the 3 models
     '''
-
+    options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
+    rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
+    
 
     # Define the simulation parameters
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=10.0, value=0.5, step=0.01)
@@ -74,9 +76,7 @@ with left_col:
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=0.1, step=0.01)
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=3650, value=10, step=1)
-    options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
-    rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-
+   
 
 
     # Simulate interest rates using the CIR and Vasicek models
