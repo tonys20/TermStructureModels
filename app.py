@@ -93,7 +93,7 @@ with left_col:
     data = {
         'x': cir_x,
         'cir_y': cir_y,
-        'vascicek_y':vascicek_y,
+        'vascicek_y':vasicek_y,
         'cir_neg_y':cir_neg_y
     }
     output_df = pd.DataFrame(data)
