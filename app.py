@@ -47,12 +47,6 @@ def vasicek(r0, K, theta, sigma, T, N):
 
 # Define the simulation parameters
 
-r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=10.0, value=0.5, step=0.01)
-K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
-theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=20.0, value=0.05, step=0.01)
-sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=0.1, step=0.01)
-T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
-N = st.slider("N: Number of Time Steps", min_value=1, max_value=3650, value=10, step=1)
 
 
 # Simulate interest rates using the CIR and Vasicek models
@@ -84,7 +78,7 @@ fig.add_trace(
 fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
 
 # Display the Plotly figure using Streamlit
-st.plotly_chart(fig)
+
 
 start_date = datetime.datetime(2017, 1, 1)
 end_date = datetime.datetime(2023, 3, 9)
@@ -97,8 +91,7 @@ def get_tbill_data(item_ls, start_date, end_date):
 
 items = ["DTB4WK","DTB3","DTB6","DTB1YR"]
 tbill_data = get_tbill_data(items, start_date, end_date)
-st.table(tbill_data.head())
-st.table(tbill_data.tail())
+
 
 hist_stats = pd.DataFrame(columns =['mean', 'vol'], index = list(tbill_data.columns))
 hist_stats.index = tbill_data.columns
@@ -106,7 +99,7 @@ for col in tbill_data.columns:
     hist_stats.loc[col,'mean'] = tbill_data[col].mean()
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
 
-st.table(hist_stats)
+
 
 
 # Define the CIR model function
@@ -148,5 +141,27 @@ bounds = (0, 0.1)
 #result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
 
 # Print the optimized parameters
+tabs = ['Sandbox', 'Calibration']
+cols = st.beta_columns(len(tabs))
+for i, col in enumerate(cols):
+    col.write(f"## {tabs[i]}")
+
+active_tab = st.sidebar.radio('select tabs', tabs)
+
+
+if active_tab == 'Sandbox':
+    r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=10.0, value=0.5, step=0.01)
+    K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+    theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=20.0, value=0.05, step=0.01)
+    sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=0.1, step=0.01)
+    T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
+    N = st.slider("N: Number of Time Steps", min_value=1, max_value=3650, value=10, step=1)
+
+    st.plotly_chart(fig)
+else:
+    st.table(tbill_data.head())
+    st.table(tbill_data.tail())
+    st.table(hist_stats)
+
 st.write('Optimized Parameters:')
-st.write(f'K = {result.x}')
+#st.write(f'K = {result.x}')
