@@ -49,29 +49,6 @@ def vasicek(r0, K, theta, sigma, T, N):
 
 
 
-# Simulate interest rates using the CIR and Vasicek models
-cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
-vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
-cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
-
-fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS', "Vasicek Model"))
-
-# Add the CIR model data to the figure
-fig.add_trace(
-    go.Scatter(x=cir_x, y=cir_y, name="CIR Model"),
-    row=1, col=1
-)
-
-fig.add_trace(
-    go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'CIR abs hash'),
-    row=2, col=1
-)
-
-# Add the Vasicek model data to the figure
-fig.add_trace(
-    go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
-    row=3, col=1
-)
 
 
 # Update the layout of the figure
@@ -156,7 +133,29 @@ if active_tab == 'Sandbox':
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=0.1, step=0.01)
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=3650, value=10, step=1)
+    # Simulate interest rates using the CIR and Vasicek models
+    cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
+    vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
+    cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
 
+    fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS', "Vasicek Model"))
+
+    # Add the CIR model data to the figure
+    fig.add_trace(
+        go.Scatter(x=cir_x, y=cir_y, name="CIR Model"),
+        row=1, col=1
+    )
+
+    fig.add_trace(
+        go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'CIR abs hash'),
+        row=2, col=1
+    )
+
+    # Add the Vasicek model data to the figure
+    fig.add_trace(
+        go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
+        row=3, col=1
+    )
     st.plotly_chart(fig)
 else:
     st.table(tbill_data.head())
