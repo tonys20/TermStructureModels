@@ -43,6 +43,9 @@ def vasicek(r0, K, theta, sigma, T, N):
 
 left_col, right_col = st.columns(2)
 with left_col:
+    '''
+    This section demonstrates effect of changing each of the parameters in the 3 models
+    '''
     # Define the simulation parameters
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=10.0, value=0.5, step=0.01)
     K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
@@ -100,8 +103,7 @@ for col in tbill_data.columns:
     hist_stats.loc[col,'mean'] = tbill_data[col].mean()
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
 with right_col:
-    st.table(tbill_data.head())
-    st.table(tbill_data.tail())
+    st.table(tbill_data.tail(3))
     st.table(hist_stats)
 
 
