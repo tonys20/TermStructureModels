@@ -179,10 +179,12 @@ initial_guess = 0.02
 bounds = (0, 0.1)
 
 # Optimize the parameters using the error function and initial guess
+
 result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
 
 # Print the optimized parameters
 
 st.write('Optimized Parameter:')
 
-st.write(f'K = {result.x}')
+
+st.write(f'K = {float(result.x)}')
