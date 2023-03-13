@@ -30,7 +30,7 @@ def cir(r0, K, theta, sigma, T, N):
             dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
             x[i] = x[i - 1] + dxt
         else:
-            x[i] = x[i-1] + np.abs(K * (theta - x[i - 1])) * dt
+            x[i] = 0 + np.abs(K * (theta - x[i - 1])) * dt
     return np.arange(0, N + 1) * dt, x
 
 def vasicek(r0, K, theta, sigma, T, N):
