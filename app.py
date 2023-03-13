@@ -85,7 +85,7 @@ with left_col:
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=2000, value=10, step=10)
 
-    if st.button('calibrate for r0, LT mean, volatility!'):
+    if st.button('Calibrate for r0, LT mean, volatility!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
         theta_cal = hist_stats.loc[rate_selected,'mean']
         sigma_cal = hist_stats.loc[rate_selected,'vol']/np.sqrt(N)
@@ -156,29 +156,29 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 
 # Define the error function to be minimized
-def error_function(K, r):
-    sigma = sigma_cal
-    theta = theta_cal
-    n = len(r)
-    dt = N/T
-    sum_of_errors = 0
-    for i in range(1, n):
-        predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
-        error = r[i] - predicted_r
-        sum_of_errors += error**2
-    return sum_of_errors
+#def error_function(K, r):
+ #   sigma = sigma_cal
+  #  theta = theta_cal
+   # n = len(r)
+    #dt = N/T
+    #sum_of_errors = 0
+    #for i in range(1, n):
+    #    predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
+    #    error = r[i] - predicted_r
+    #    sum_of_errors += error**2
+    #return sum_of_errors
 
 
 # Load the historical data
 
-r = tbill_data[rate_selected]
-sse1 = error_function(0.01, r)
+#r = tbill_data[rate_selected]
+#sse1 = error_function(0.01, r)
 
 # Set the initial guess for the parameters
-initial_guess = 0.02
+#initial_guess = 0.02
 
 # Set bounds for the parameters
-bounds = (0, 0.1)
+#bounds = (0, 0.1)
 
 # Optimize the parameters using the error function and initial guess
 
