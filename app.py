@@ -67,6 +67,7 @@ for col in tbill_data.columns:
 left_col, right_col = st.columns(2)
 with left_col:
     '''
+    # Modern Interest Rate Forecast Models Dashboard#
     This section demonstrates effect of changing each of the parameters in the 3 models
     '''
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
@@ -74,8 +75,8 @@ with left_col:
     r0_cal = 0.0
     theta_cal = 0.0
     sigma_cal = 0.0
-    N0=12
-    T0=10
+    N_cal=12.0
+    T_cal=10.0
 
     if st.button('Calibrate for r0, LT mean, volatility!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
@@ -89,8 +90,8 @@ with left_col:
     K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
     theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=6.0, value=float(theta_cal), step=0.01)
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=float(sigma_cal), step=0.01)
-    T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=T0, step=0.1)
-    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=N0, step=10)
+    T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=T_cal, step=0.1)
+    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=N_cal, step=10)
 
 
 
