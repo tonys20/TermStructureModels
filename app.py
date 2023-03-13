@@ -15,8 +15,11 @@ def cir_neg(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
     x[0] = r0
+    a = 0.1
+    b = 0.4
     for i in range(1, N + 1):
-        dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(math.tanh(x[i - 1])) * np.random.normal()
+        g =  1 / (1 + a * np.tanh(b * x[i-1]))
+        dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(g) * np.random.normal()
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
 
