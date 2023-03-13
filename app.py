@@ -155,10 +155,10 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 # Define the error function to be minimized
 def error_function(K, r):
-    sigma = 0.01
-    theta = 0.02
+    sigma = sigma_cal
+    theta = theta_cal
     n = len(r)
-    dt = 1/252
+    dt = N/T
     sum_of_errors = 0
     for i in range(1, n):
         predicted_r = r[i-1] + cir_opt(r[i-1], K, theta, sigma,n*dt,n)*dt
@@ -179,10 +179,10 @@ initial_guess = 0.02
 bounds = (0, 0.1)
 
 # Optimize the parameters using the error function and initial guess
-#result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
+result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
 
 # Print the optimized parameters
 
-#st.write('Optimized Parameters:')
+st.write('Optimized Parameter:')
 
-#st.write(f'K = {result.x}')
+st.write(f'K = {result.x}')
