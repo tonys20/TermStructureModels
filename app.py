@@ -8,7 +8,7 @@ import pandas as pd
 import scipy.optimize as opt
 import base64
 
-np.random.seed(42)
+
 
 # Define the CIR and Vasicek models for simulating interest rates
 def cir_neg(r0, K, theta, sigma, T, N):
@@ -20,7 +20,7 @@ def cir_neg(r0, K, theta, sigma, T, N):
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
 
-np.random.seed(42)
+
 def cir(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
@@ -33,7 +33,6 @@ def cir(r0, K, theta, sigma, T, N):
             x[i] = x[i-1] + K * (theta - x[i - 1]) * dt
     return np.arange(0, N + 1) * dt, x
 
-np.random.seed(42)
 def vasicek(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
