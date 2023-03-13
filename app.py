@@ -140,16 +140,6 @@ with right_col:
     st.table(hist_stats)
 
 
-        
-
-    
-
-
-
-
-
-
-
 # Define the CIR model function
 def cir_opt(r0, K, theta, sigma, T, N):
     dt = float(T) / N
