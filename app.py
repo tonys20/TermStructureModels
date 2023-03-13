@@ -66,7 +66,7 @@ for col in tbill_data.columns:
 left_col, right_col = st.columns(2)
 with left_col:
     '''
-    # Modern Interest Rate Forecast Models Dashboard
+    # Modern Interest Rate Models Dashboard
     This section demonstrates effect of changing each of the parameters in the 3 models
     '''
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
