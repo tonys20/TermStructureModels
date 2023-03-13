@@ -74,11 +74,8 @@ with left_col:
     r0_cal = 0.5
     theta_cal = 0.05
     sigma_cal = 0.1
-    if st.button('calibrate for r0, LT mean, volatility!'):
-        r0_cal = tbill_data[rate_selected].iloc[-1]
-        theta_cal = hist_stats.loc[rate_selected,'mean']
-        sigma_cal = hist_stats.loc[rate_selected,'vol']
-
+    N=12
+    T=10
 
     # Define the simulation parameters
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=10.0, value=float(r0_cal), step=0.01)
@@ -87,6 +84,11 @@ with left_col:
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=float(sigma_cal), step=0.01)
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=2000, value=10, step=10)
+
+    if st.button('calibrate for r0, LT mean, volatility!'):
+        r0_cal = tbill_data[rate_selected].iloc[-1]
+        theta_cal = hist_stats.loc[rate_selected,'mean']
+        sigma_cal = hist_stats.loc[rate_selected,'vol']/np.sqrt(N)
    
 
 
