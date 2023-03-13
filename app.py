@@ -77,6 +77,13 @@ with left_col:
     N=12
     T=10
 
+    if st.button('Calibrate for r0, LT mean, volatility!'):
+        r0_cal = tbill_data[rate_selected].iloc[-1]
+        theta_cal = hist_stats.loc[rate_selected,'mean']
+        sigma_cal = hist_stats.loc[rate_selected,'vol']/np.sqrt(N)
+   
+
+
     # Define the simulation parameters
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
     K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
@@ -85,11 +92,6 @@ with left_col:
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
     N = st.slider("N: Number of Time Steps", min_value=1, max_value=2000, value=10, step=10)
 
-    if st.button('Calibrate for r0, LT mean, volatility!'):
-        r0_cal = tbill_data[rate_selected].iloc[-1]
-        theta_cal = hist_stats.loc[rate_selected,'mean']
-        sigma_cal = hist_stats.loc[rate_selected,'vol']/np.sqrt(N)
-   
 
 
     # Simulate interest rates using the CIR and Vasicek models
