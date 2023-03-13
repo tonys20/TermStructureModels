@@ -91,7 +91,7 @@ with left_col:
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
     theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=6.0, value=float(theta_cal), step=0.01)
     st.write(2*K*theta)
-    sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=3.0, value=float(sigma_cal), step=0.01)
+    sigma = st.slider("sigma: Volatility", min_value=0, max_value=sqrt(np.sqrt(2*K*theta)), value=float(sigma_cal), step=0.01)
     st.write(sigma**2)
     
 
