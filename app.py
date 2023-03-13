@@ -112,7 +112,7 @@ with left_col:
     output_df = pd.DataFrame(data)
     csv = output_df.to_csv(index=False)
 
-    fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'CIR ABS', "Vasicek Model"))
+    fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'Generalized CIR-tanh', "Vasicek Model"))
 
     # Add the CIR model data to the figure
     fig.add_trace(
@@ -121,7 +121,7 @@ with left_col:
     )
 
     fig.add_trace(
-        go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'CIR abs hash'),
+        go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'Generalized CIR tanh'),
         row=2, col=1
     )
 
