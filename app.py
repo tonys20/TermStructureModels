@@ -45,7 +45,7 @@ def vasicek(r0, K, theta, sigma, T, N):
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
 
-@st.cache_data
+
 def get_tbill_data(item_ls, start_date, end_date):
     tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
     return tbill_data
