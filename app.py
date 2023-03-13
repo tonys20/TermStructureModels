@@ -92,7 +92,7 @@ with left_col:
     K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
     theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=6.0, value=float(theta_cal), step=0.01)
-    sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=float(sigma_cal*np.sqrt(252*T/N)), step=0.01)
+    sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=10.0, value=float(sigma_cal*np.sqrt(252*T/N)), step=0.01)
     
     
 
