@@ -93,7 +93,7 @@ with left_col:
     if st.button('Calibrate for r0, LT mean, volatility!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
         theta_cal = hist_stats.loc[rate_selected,'mean']
-        sigma_cal = hist_stats.loc[rate_selected,'vol']*sqrt(N)
+        sigma_cal = hist_stats.loc[rate_selected,'vol']*np.sqrt(N)
 
     # Simulate interest rates using the CIR and Vasicek models
     cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
