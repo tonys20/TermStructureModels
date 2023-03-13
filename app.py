@@ -90,8 +90,8 @@ with left_col:
     K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
     theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=6.0, value=float(theta_cal), step=0.01)
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=float(sigma_cal), step=0.01)
-    T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=float(T_cal), step=0.1)
-    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=float(N_cal), step=10)
+    T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=10, step=0.1)
+    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=12, step=10)
 
 
 
