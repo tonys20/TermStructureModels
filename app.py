@@ -71,8 +71,8 @@ with left_col:
     '''
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
     rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-    r0_cal = 0.5
-    theta_cal = 0.0
+    r0_cal = 0.2
+    theta_cal = 0.2
     sigma_cal = 0.0
     N_cal = 12.0
     T_cal = 10.0
