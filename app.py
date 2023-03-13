@@ -169,7 +169,7 @@ def error_function(K, r):
 
 # Load the historical data
 
-r = tbill_data['DTB3']
+r = tbill_data[rate_selected]
 sse1 = error_function(0.01, r)
 
 # Set the initial guess for the parameters
