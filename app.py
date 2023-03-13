@@ -83,8 +83,9 @@ with left_col:
 
 
     # Define the simulation parameters
-    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=12 , step=10)
+
     T = st.slider("T: Time to Maturity (Years)", min_value=0, max_value=10, value=10 , step=1)
+    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=12 , step=10)
     if st.button('Calibrate for r0, LT mean, volatility!'):
         r0_cal = tbill_data[rate_selected].iloc[-1]
         theta_cal = hist_stats.loc[rate_selected,'mean']
