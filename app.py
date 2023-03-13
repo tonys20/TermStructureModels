@@ -71,9 +71,9 @@ with left_col:
     '''
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
     rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-    r0_cal = 0.5
-    theta_cal = 0.05
-    sigma_cal = 0.1
+    r0_cal = 0
+    theta_cal = 0
+    sigma_cal = 0
     N=12
     T=10
 
@@ -86,7 +86,7 @@ with left_col:
 
     # Define the simulation parameters
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
-    K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+    K = st.slider("K: Mean Reversion Rate", min_value=0.0, max_value=1.0, value=0, step=0.01)
     theta = st.slider("theta: Long-term Mean", min_value=0.0, max_value=6.0, value=float(theta_cal), step=0.01)
     sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=5.0, value=float(sigma_cal), step=0.01)
     T = st.slider("T: Time to Maturity (Years)", min_value=0.1, max_value=10.0, value=1.0, step=0.1)
