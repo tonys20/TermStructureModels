@@ -30,7 +30,7 @@ def cir(r0, K, theta, sigma, T, N):
 
         dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
         x[i] = x[i - 1] + dxt
-    if x[i]<=0:
+    if x[i]<0:
         x[i] = K * (theta) * dt
         
     return np.arange(0, N + 1) * dt, x
