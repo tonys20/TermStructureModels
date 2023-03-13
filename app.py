@@ -68,12 +68,12 @@ for col in tbill_data.columns:
 left_col, right_col = st.columns(2)
 with left_col:
     '''
-    # Modern Interest Rate Forecast Models Dashboard#
+    # Modern Interest Rate Forecast Models Dashboard
     This section demonstrates effect of changing each of the parameters in the 3 models
     '''
     options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
     rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-    r0_cal = 0.0
+    r0_cal = 0.5
     theta_cal = 0.0
     sigma_cal = 0.0
     N_cal = 12.0
