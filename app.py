@@ -186,7 +186,7 @@ def calibrate():
     result = opt.minimize_scalar(error_function, args=(r,), bounds=bounds, method = 'bounded')
     return result
 # Print the optimized parameters
-
+calibrate()
 st.write('Optimized Parameter:')
 
 
