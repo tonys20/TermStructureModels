@@ -28,9 +28,9 @@ def cir(r0, K, theta, sigma, T, N):
     for i in range(1, N + 1):
         if x[i-1] >0:
             dxt = K * (theta - x[i - 1]) * dt + sigma * np.sqrt(x[i - 1]) * np.random.normal()
+            x[i] = x[i - 1] + dxt
         else:
-            dxt = K * (theta - x[i - 1]) * dt
-        x[i] = x[i - 1] + dxt
+            x[i] = K * (theta - x[i]) * dt
         
     return np.arange(0, N + 1) * dt, x
 
