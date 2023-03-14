@@ -65,7 +65,7 @@ def plot_sims(date_range, paths):
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
                         specs=[[{"type": "scatter"}],
                                [{"type": "histogram"}]],
-                        subplot_titles=("Interest Rate Paths", "Histogram of Final Interest Rates"))
+                        subplot_titles=("Interest Rate Paths", "Histogram of Interest Rates at End of Forecast Range"))
 
     for path in paths:
         fig.add_trace(go.Scatter(x=date_range, y=path, mode='lines'), row=1, col=1)
