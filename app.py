@@ -73,7 +73,7 @@ def plot_sims(date_range, paths):
     fig.add_trace(go.Histogram(x=final_rates, nbinsx=20), row=2, col=1)
 
     fig.update_layout(height=800, showlegend=False)
-    fig.show()
+    return fig
 
 
 #get the t bill data from FRED
@@ -227,4 +227,5 @@ with tab2:
     start_date = datetime.date.today()
     end_date = st.date_input('select end date', datetime.date.today())
     date_range, paths = monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date)
-    plot_sims(date_range, paths)
+    fig = plot_sims(date_range, paths)
+    st.plotly_chart(fig)
