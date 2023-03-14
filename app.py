@@ -25,7 +25,10 @@ def cir_neg(r0, K, theta, sigma, T, N):
 
 
 def cir(r0, K, theta, sigma, T, N):
-    dt = float(T) / N
+    try:
+        dt = float(T) / N
+    except ZeroDivisionError:
+        dt = 1
     x = np.zeros(N + 1)
     x[0] = r0
     for i in range(1, N + 1):
