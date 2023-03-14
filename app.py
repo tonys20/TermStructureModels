@@ -51,8 +51,9 @@ def get_tbill_data(item_ls, start_date, end_date):
     return tbill_data
 
 
-def monte_carlo(model, n_paths, r0, K, theta, sigma, N, start_date, end_date):
+def monte_carlo(model, n_paths, r0, K, theta, sigma, start_date, end_date):
     T = (end_date-start_date).days/365
+    N = (end_date-start_date).days
     date_range = pd.date_range(start=start_date, end=end_date, periods=N+1)
     paths = np.zeros((n_paths, N+1))
     for i in range(n_paths):
@@ -226,6 +227,6 @@ with tab2:
     model = model_dic[st.selectbox('select a model for the simulation', model_names)]
     start_date = datetime.date.today()
     end_date = st.date_input('select end date', datetime.date.today())
-    date_range, paths = monte_carlo(model, n_paths, r0, K, theta, sigma, N, start_date, end_date)
+    date_range, paths = monte_carlo(model, n_paths, r0, K, theta, sigma, start_date, end_date)
     fig = plot_sims(date_range, paths)
     st.plotly_chart(fig)
