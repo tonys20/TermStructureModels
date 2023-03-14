@@ -245,6 +245,10 @@ with tab2:
     start_date = datetime.date.today()
     end_date = st.date_input('select end date', datetime.date.today())
     freq = st.slider('Choose number of steps per day',  min_value=1, max_value=5, value=1, step=1)
-    date_range, paths = monte_carlo(model, n_paths, r0, K, theta, sigma, start_date, end_date, freq)
+    if st.button('Calibrate for r0, LT mean, volatility!'):
+            r0_cal = tbill_data[rate_selected].iloc[-1]
+            theta_cal = hist_stats.loc[rate_selected,'mean']
+            sigma_cal = hist_stats.loc[rate_selected,'vol']
+    date_range, paths = monte_carlo(model, n_paths, r0_cal, K, theta_cal, sigma_cal, start_date, end_date, freq)
     fig = plot_sims(date_range, paths)
     st.plotly_chart(fig)
