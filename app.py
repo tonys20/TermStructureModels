@@ -217,7 +217,7 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 
 #st.write(f'K = {float(result.x)}')
-tab2 = st.expander('Monte Carlo Simulation')
+tab2 = st.tab('Monte Carlo Simulation')
 with tab2:
     N_paths = st.slider('number of simulations',  min_value=1, max_value=10000, value=5, step=1 )
     model_dic = {'Plain CIR': cir, 'tanh Generalized CIR':cir_neg, 'Vasicek': vasicek}
