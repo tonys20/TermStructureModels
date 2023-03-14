@@ -90,7 +90,7 @@ hist_stats.index = tbill_data.columns
 for col in tbill_data.columns:
     hist_stats.loc[col,'mean'] = tbill_data[col].mean()
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
-tab1, tab2 = st.tabs(['model sandbox', 'Monte Carlo Simulation'])
+tab1, tab2, tab3 = st.tabs(['Model Sandbox', 'Monte Carlo Simulation', 'Simulation Based Valuation'])
 with tab1:
     left_col, right_col = st.columns(2)
     with left_col:
