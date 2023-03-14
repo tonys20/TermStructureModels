@@ -89,7 +89,7 @@ with left_col:
 
     T = st.number_input("T: Time to Maturity (Years)", min_value=0, max_value=10, value=10 , step=1)
     
-    K = st.slider("K: Mean Reversion Rate", min_value=1.0, max_value=3.0, value=0.0, step=0.01)
+    K = st.slider("K: Mean Reversion Rate", min_value=0.2, max_value=3.0, value=1.0, step=0.01)
     r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
     theta = st.slider("theta: Long-term Mean", min_value=0.20, max_value=6.0, value=float(theta_cal), step=0.01)
     st.write(2*K*theta)
