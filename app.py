@@ -70,7 +70,7 @@ def plot_sims(date_range, paths):
         fig.add_trace(go.Scatter(x=date_range, y=path, mode='lines'), row=1, col=1)
 
     final_rates = paths[:, -1]
-    fig.add_trace(go.Histogram(x=final_rates, nbinsx=20), row=2, col=1)
+    fig.add_trace(go.Histogram(x=final_rates, nbinsx=200), row=2, col=1)
 
     fig.update_layout(height=800, showlegend=False)
     return fig
