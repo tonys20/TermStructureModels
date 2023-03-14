@@ -217,4 +217,4 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 
 #st.write(f'K = {float(result.x)}')
-tab2 = st.beta_expander('Monte Carlo Simulation')
+tab2 = st.expander('Monte Carlo Simulation')
