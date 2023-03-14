@@ -97,7 +97,7 @@ with tab1:
     with left_col:
         '''
         # Modern Interest Rate Models Dashboard
-        This section demonstrates effect of changing each of the parameters in the 3 models
+        This section demonstrates effect of changing each of the parameters in the 3 models\n
         If you see a range error, change the parameters so condition 2K*theta>sigma^2 is met
         '''
         options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
