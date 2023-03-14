@@ -101,7 +101,10 @@ with tab1:
         '''
         # Modern Interest Rate Models Dashboard
         This section demonstrates effect of changing each of the parameters in the 3 models\n
-        If you see a range error, change the parameters so condition 2K*theta>sigma^2 is met
+        If you see a range error in sandbox, change the parameters so condition 2K*theta>sigma^2 is met\n
+        Number of paths for Monte Carlo is set to 50 by default. If you need to change the number of paths,\n
+        come back to the sandbox tab to calibrate or change custom parameters.
+
         '''
         options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
         rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
