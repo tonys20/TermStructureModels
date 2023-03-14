@@ -50,6 +50,32 @@ def get_tbill_data(item_ls, start_date, end_date):
     tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
     return tbill_data
 
+
+def monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date):
+
+    date_range = pd.date_range(start=start_date, end=end_date, periods=N+1)
+    paths = np.zeros((n_paths, N+1))
+    for i in range(n_paths):
+        _, path = model(r0, K, theta, sigma, T, N)
+        paths[i] = path
+    return date_range, paths
+
+def plot_sims(date_range, paths):
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
+                        specs=[[{"type": "scatter"}],
+                               [{"type": "histogram"}]],
+                        subplot_titles=("Interest Rate Paths", "Histogram of Final Interest Rates"))
+
+    for path in paths:
+        fig.add_trace(go.Scatter(x=date_range, y=path, mode='lines'), row=1, col=1)
+
+    final_rates = paths[:, -1]
+    fig.add_trace(go.Histogram(x=final_rates, nbinsx=20), row=2, col=1)
+
+    fig.update_layout(height=800, showlegend=False)
+    fig.show()
+
+
 #get the t bill data from FRED
 items = ["DTB4WK","DTB3","DTB6","DTB1YR"]
 start_date = datetime.datetime(2017, 1, 1)
@@ -191,3 +217,5 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 
 #st.write(f'K = {float(result.x)}')
+tab2 = st.beta_expander('Monte Carlo Simulation')
+with tab2:
