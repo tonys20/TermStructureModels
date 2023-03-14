@@ -52,7 +52,7 @@ def get_tbill_data(item_ls, start_date, end_date):
 
 
 def monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date):
-    T = (end_date-start_date)/365
+    T = float((end_date-start_date)/365)
     date_range = pd.date_range(start=start_date, end=end_date, periods=N+1)
     paths = np.zeros((n_paths, N+1))
     for i in range(n_paths):
