@@ -223,6 +223,6 @@ with tab2:
     model_dic = {'Plain CIR': cir, 'tanh Generalized CIR':cir_neg, 'Vasicek': vasicek}
     model_names = list(model_dic.keys)
     model = st.selectbox('select a model for the simulation', model_names)
-    start_date = datetime.datetime.today()
-    end_date = st.date_iput()
-    monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date)
+    start_date = datetime.date.today()
+    end_date = st.date_iput('select a date', datetime.date.today())
+    #monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date)
