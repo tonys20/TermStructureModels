@@ -24,7 +24,7 @@ def cir_neg(r0, K, theta, sigma, T, N):
     return np.arange(0, N + 1) * dt, x
 
 
-def cir(r0, K, theta, sigma, T, N):
+def cir(r0, K, theta, sigma, T, N=1):
     dt = float(T) / N
     x = np.zeros(N + 1)
     x[0] = r0
