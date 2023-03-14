@@ -11,6 +11,7 @@ import math
 
 
 # Define the CIR and Vasicek models for simulating interest rates
+#current version of cir neg is the hyperbolic tangent generalization of the original CIR model to solve positivity issues.
 def cir_neg(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
@@ -23,7 +24,7 @@ def cir_neg(r0, K, theta, sigma, T, N):
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
 
-
+# implement plain CIR model
 def cir(r0, K, theta, sigma, T, N):
     try:
         dt = float(T) / N
@@ -39,6 +40,7 @@ def cir(r0, K, theta, sigma, T, N):
         
     return np.arange(0, N + 1) * dt, x
 
+#implement vasicek
 def vasicek(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
@@ -48,12 +50,12 @@ def vasicek(r0, K, theta, sigma, T, N):
         x[i] = x[i - 1] + dxt
     return np.arange(0, N + 1) * dt, x
 
-
+#pull historical data from 2017 up to the day func is called
 def get_tbill_data(item_ls, start_date, end_date):
     tbill_data = web.DataReader(item_ls, "fred", start_date, end_date).dropna()
     return tbill_data
 
-
+#define main func for monte carlo simulation
 def monte_carlo(model, n_paths, r0, K, theta, sigma, start_date, end_date,freq=1):
     T = (end_date-start_date).days/365
     N = (end_date-start_date).days*freq
@@ -64,6 +66,7 @@ def monte_carlo(model, n_paths, r0, K, theta, sigma, start_date, end_date,freq=1
         paths[i] = path
     return date_range, paths
 
+#plot simulation result with distribution
 def plot_sims(date_range, paths):
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True,
                         specs=[[{"type": "scatter"}],
@@ -88,14 +91,19 @@ end_date = datetime.datetime.today()
 tbill_data = get_tbill_data(items, start_date, end_date)
 
 
-
+# display key statistics from historical data collected
 hist_stats = pd.DataFrame(columns =['mean', 'vol'], index = list(tbill_data.columns))
 hist_stats.index = tbill_data.columns
+
 for col in tbill_data.columns:
     hist_stats.loc[col,'mean'] = tbill_data[col].mean()
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
+
+#create the tabs
+
 tab1, tab2, tab3 = st.tabs(['Model Sandbox', 'Monte Carlo Simulation', 'Simulation Based Valuation'])
 with tab1:
+    #create columns in tab1
     left_col, right_col = st.columns(2)
     with left_col:
         '''
@@ -137,6 +145,7 @@ with tab1:
         cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
         vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
         cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
+        #prepare csv file for user download
         data = {
             'x': cir_x,
             'cir_y': cir_y,
@@ -145,7 +154,7 @@ with tab1:
         }
         output_df = pd.DataFrame(data)
         csv = output_df.to_csv(index=False)
-
+        #plot the three models with only one path
         fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'Generalized CIR-tanh', "Vasicek Model"))
 
         # Add the CIR model data to the figure
@@ -175,12 +184,13 @@ with tab1:
             href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download CSV</a>'
             st.markdown(href, unsafe_allow_html=True)
 
+    #display the stats in the right column
     with right_col:
         st.table(tbill_data.tail(3))
         st.table(hist_stats)
 
 
-# Define the CIR model function
+# Define the CIR model function. Not finished yet
 def cir_opt(r0, K, theta, sigma, T, N):
     dt = float(T) / N
     x = np.zeros(N + 1)
@@ -192,7 +202,7 @@ def cir_opt(r0, K, theta, sigma, T, N):
             dxt = 0
     return dxt
 
-
+# the commented out codes should optimize the sse func to find optimal parameters 
 # Define the error function to be minimized
 #def error_function(K, r):
  #   sigma = sigma_cal
@@ -216,7 +226,7 @@ def cir_opt(r0, K, theta, sigma, T, N):
 #initial_guess = 0.02
 
 # Set bounds for the parameters
-#bounds = (0, 0.1)
+#bounds = (0, 1)
 
 # Optimize the parameters using the error function and initial guess
 
@@ -226,6 +236,7 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 #st.write(f'K = {float(result.x)}')
 
+#Now show monte carlo simulation in tab 2
 with tab2:
     n_paths = st.slider('number of simulations',  min_value=1, max_value=10000, value=50, step=1 )
     model_dic = {'Plain CIR': cir, 'tanh Generalized CIR':cir_neg, 'Vasicek': vasicek}
