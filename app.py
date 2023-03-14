@@ -226,4 +226,5 @@ with tab2:
     model = model_dic[st.selectbox('select a model for the simulation', model_names)]
     start_date = datetime.date.today()
     end_date = st.date_input('select end date', datetime.date.today())
-    monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date)
+    date_range, paths = monte_carlo(model, n_paths, r0, K, theta, sigma, T, N, start_date, end_date)
+    plot_sims(date_range, paths)
