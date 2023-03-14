@@ -221,7 +221,7 @@ tab2 = st.expander('Monte Carlo Simulation')
 with tab2:
     N_paths = st.slider('number of simulations',  min_value=1, max_value=10000, value=5, step=1 )
     model_dic = {'Plain CIR': cir, 'tanh Generalized CIR':cir_neg, 'Vasicek': vasicek}
-    model_names = list(model_dic.keys)
+    model_names = list(model_dic.keys())
     model = st.selectbox('select a model for the simulation', model_names)
     start_date = datetime.date.today()
     end_date = st.date_iput('select a date', datetime.date.today())
