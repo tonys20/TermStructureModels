@@ -90,86 +90,87 @@ hist_stats.index = tbill_data.columns
 for col in tbill_data.columns:
     hist_stats.loc[col,'mean'] = tbill_data[col].mean()
     hist_stats.loc[col,'vol'] = tbill_data[col].std()
+tab1, tab2 = st.tabs(['model sandbox', 'Monte Carlo Simulation'])
+with tab1:
+    left_col, right_col = st.columns(2)
+    with left_col:
+        '''
+        # Modern Interest Rate Models Dashboard
+        This section demonstrates effect of changing each of the parameters in the 3 models
+        '''
+        options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
+        rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
+        r0_cal = 0.2
+        theta_cal = 0.2
+        sigma_cal = 0.0
+        N_cal = 12.0
+        T_cal = 10.0
+        if st.button('Calibrate for r0, LT mean, volatility!'):
+            r0_cal = tbill_data[rate_selected].iloc[-1]
+            theta_cal = hist_stats.loc[rate_selected,'mean']
+            sigma_cal = hist_stats.loc[rate_selected,'vol']
 
-left_col, right_col = st.columns(2)
-with left_col:
-    '''
-    # Modern Interest Rate Models Dashboard
-    This section demonstrates effect of changing each of the parameters in the 3 models
-    '''
-    options = ["DTB4WK","DTB3","DTB6","DTB1YR"]
-    rate_selected = st.selectbox('Select the Treasury Bill rate to calibrate to', options)
-    r0_cal = 0.2
-    theta_cal = 0.2
-    sigma_cal = 0.0
-    N_cal = 12.0
-    T_cal = 10.0
-    if st.button('Calibrate for r0, LT mean, volatility!'):
-        r0_cal = tbill_data[rate_selected].iloc[-1]
-        theta_cal = hist_stats.loc[rate_selected,'mean']
-        sigma_cal = hist_stats.loc[rate_selected,'vol']
+        N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=12 , step=10)
 
-    N = st.number_input("N: Number of Time Steps", min_value=1, max_value=2000, value=12 , step=10)
+        # Define the simulation parameters
 
-    # Define the simulation parameters
-
-    T = st.number_input("T: Time to Maturity (Years)", min_value=0, max_value=10, value=10 , step=1)
-    
-    K = st.slider("K: Mean Reversion Rate", min_value=0.2, max_value=3.0, value=1.0, step=0.01)
-    r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
-    theta = st.slider("theta: Long-term Mean", min_value=0.20, max_value=6.0, value=float(theta_cal), step=0.01)
-    st.write(2*K*theta)
-    sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=np.sqrt(2*K*theta), value=float(sigma_cal), step=0.01)
-    st.write(sigma**2)
-    
+        T = st.number_input("T: Time to Maturity (Years)", min_value=0, max_value=10, value=10 , step=1)
+        
+        K = st.slider("K: Mean Reversion Rate", min_value=0.2, max_value=3.0, value=1.0, step=0.01)
+        r0 = st.slider("r0: Initial Rate", min_value=0.0, max_value=6.0, value=float(r0_cal), step=0.01)
+        theta = st.slider("theta: Long-term Mean", min_value=0.20, max_value=6.0, value=float(theta_cal), step=0.01)
+        st.write(2*K*theta)
+        sigma = st.slider("sigma: Volatility", min_value=0.0, max_value=np.sqrt(2*K*theta), value=float(sigma_cal), step=0.01)
+        st.write(sigma**2)
+        
 
 
 
-    # Simulate interest rates using the CIR and Vasicek models
-    cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
-    vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
-    cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
-    data = {
-        'x': cir_x,
-        'cir_y': cir_y,
-        'vascicek_y':vasicek_y,
-        'cir_neg_y':cir_neg_y
-    }
-    output_df = pd.DataFrame(data)
-    csv = output_df.to_csv(index=False)
+        # Simulate interest rates using the CIR and Vasicek models
+        cir_x, cir_y = cir(r0, K, theta, sigma, T, N)
+        vasicek_x, vasicek_y = vasicek(r0, K, theta, sigma, T, N)
+        cir_neg_x, cir_neg_y = cir_neg(r0, K, theta, sigma, T, N)
+        data = {
+            'x': cir_x,
+            'cir_y': cir_y,
+            'vascicek_y':vasicek_y,
+            'cir_neg_y':cir_neg_y
+        }
+        output_df = pd.DataFrame(data)
+        csv = output_df.to_csv(index=False)
 
-    fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'Generalized CIR-tanh', "Vasicek Model"))
+        fig = make_subplots(rows=3, cols=1, subplot_titles=("CIR Model",'Generalized CIR-tanh', "Vasicek Model"))
 
-    # Add the CIR model data to the figure
-    fig.add_trace(
-        go.Scatter(x=cir_x, y=cir_y, name="CIR Model"),
-        row=1, col=1
-    )
+        # Add the CIR model data to the figure
+        fig.add_trace(
+            go.Scatter(x=cir_x, y=cir_y, name="CIR Model"),
+            row=1, col=1
+        )
 
-    fig.add_trace(
-        go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'Generalized CIR tanh'),
-        row=2, col=1
-    )
+        fig.add_trace(
+            go.Scatter(x=cir_neg_x, y=cir_neg_y, name = 'Generalized CIR tanh'),
+            row=2, col=1
+        )
 
-    # Add the Vasicek model data to the figure
-    fig.add_trace(
-        go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
-        row=3, col=1
-    )
+        # Add the Vasicek model data to the figure
+        fig.add_trace(
+            go.Scatter(x=vasicek_x, y=vasicek_y, name="Vasicek Model"),
+            row=3, col=1
+        )
 
-    # Update the layout of the figure
-    fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
+        # Update the layout of the figure
+        fig.update_layout(height=600, width=800, title="Modern Term Structure Models")
 
-    # Display the Plotly figure using Streamlit
-    st.plotly_chart(fig)
-    if st.button('Download data'):
-        b64 = base64.b64encode(csv.encode()).decode()
-        href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download CSV</a>'
-        st.markdown(href, unsafe_allow_html=True)
+        # Display the Plotly figure using Streamlit
+        st.plotly_chart(fig)
+        if st.button('Download data'):
+            b64 = base64.b64encode(csv.encode()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="data.csv">Download CSV</a>'
+            st.markdown(href, unsafe_allow_html=True)
 
-with right_col:
-    st.table(tbill_data.tail(3))
-    st.table(hist_stats)
+    with right_col:
+        st.table(tbill_data.tail(3))
+        st.table(hist_stats)
 
 
 # Define the CIR model function
@@ -217,7 +218,7 @@ def cir_opt(r0, K, theta, sigma, T, N):
 
 
 #st.write(f'K = {float(result.x)}')
-tab2 = st.tabs(['Monte Carlo Simulation'])
+
 with tab2:
     N_paths = st.slider('number of simulations',  min_value=1, max_value=10000, value=5, step=1 )
     model_dic = {'Plain CIR': cir, 'tanh Generalized CIR':cir_neg, 'Vasicek': vasicek}
